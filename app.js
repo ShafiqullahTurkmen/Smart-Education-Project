@@ -6,7 +6,12 @@ const courseRouter = require('./routes/courseRout');
 const app = express();
 
 //Connect DataBase
-mongoose.connect('mongodb://localhost/smart-education-db');
+mongoose.connect('mongodb://localhost/smart-education-db')
+.then(() => {
+  console.log('DB connected successfully');
+}).catch((err) => {
+  console.log(err);
+})
 
 //Template Engine
 app.set('view engine', 'ejs');
