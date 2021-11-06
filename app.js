@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const pageRouter = require('./routes/pageRout');
-const courseRouter = require('./routes/courseRout');
+const pageRout = require('./routes/pageRout');
+const courseRout = require('./routes/courseRout');
+const categoryRoute = require('./routes/categoryRoute');
 
 const app = express();
 
@@ -24,8 +25,11 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 
 //Routes
-app.use('/', pageRouter);
-app.use('/courses', courseRouter);
+app.use('/', pageRout);
+app.use('/courses', courseRout);
+app.use('/categories', categoryRoute);
+
+
 
 
 
