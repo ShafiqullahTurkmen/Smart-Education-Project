@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt  = require('bcrypt');
 
 exports.createUser = async (req, res) => {
   try {
@@ -11,6 +12,30 @@ exports.createUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: 'fail',
+      error,
+    });
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {     
+    const {email, password} = req.body;
+
+    
+    await User.findOne({email}, (err, user) => {
+      if (user) {
+        bcrypt.compare(password, user.password, (err, same) => {
+          if (same) {
+            // USER Session 
+            res.status(200).send('You are Logged in')
+          }
+        });
+      }
+    }).clone()
+    
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
       error,
     });
   }
