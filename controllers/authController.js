@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
         res.status(201).redirect('/login');
     } catch (error) {
         const errors = validationResult(req);
-        console.log(errors);
+        console.log(errors); 
         console.log(errors.array()[0].msg);
 
         for (let i = 0; i < errors.array().length; i++) {
