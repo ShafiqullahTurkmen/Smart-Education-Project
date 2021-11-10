@@ -75,12 +75,14 @@ exports.sendEmail = async (req, res) => {
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 
+  req.flash('success', 'We Received your message successfully')
+
   res.status(200).redirect('/contact'); 
+
   } catch (error) {
-    res.json({
-      status: 'fail',
-      error
-    })
+    req.flash('error', `Something Wrong Happend!`);
+    console.log(error);
+    res.status(200).redirect('/contact');
   }
 
 
