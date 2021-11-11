@@ -1,3 +1,4 @@
+//Imports
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -9,11 +10,12 @@ const courseRout = require('./routes/courseRout');
 const categoryRoute = require('./routes/categoryRoute');
 const userRoute = require('./routes/userRoute');
 
+//Initializes express js
 const app = express();
 
-//Connect DataBase
+//Connects to DataBase
 mongoose
-    .connect('mongodb://localhost/smart-education-db')
+    .connect('mongodb+srv://shafiqullahturkmen:t9iXrBCH8P48hocu@cluster0.umemf.mongodb.net/smart-education-db?retryWrites=true&w=majority')
     .then(() => {
         console.log('DB connected successfully');
     })
@@ -31,8 +33,7 @@ global.userIN = null;
 app.use(express.static('public'));
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(
-    session({
+app.use(session({
         secret: 'my_keyboard_cat',
         resave: false,
         saveUninitialized: true,
@@ -52,7 +53,7 @@ app.use(
     })
 );
 
-//Routes
+//All Routers
 app.use('*', (req, res, next) => {
     userIN = req.session.userID;
     next();
@@ -62,8 +63,10 @@ app.use('/courses', courseRout);
 app.use('/categories', categoryRoute);
 app.use('/users', userRoute);
 
-const port = 3000;
+//Port number
+const port = process.env.PORT || 3000;
 
+//listens to port
 app.listen(port, () => {
     console.log(`App started on port ${port}.`);
 });

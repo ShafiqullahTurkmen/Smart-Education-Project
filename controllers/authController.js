@@ -1,9 +1,11 @@
+//Imports
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
 const Category = require('../models/Category');
 const Course = require('../models/Course');
 
+//Creates Users with validation
 exports.createUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
@@ -21,6 +23,8 @@ exports.createUser = async (req, res) => {
     }
 };
 
+//Makes a user log in with validation,
+// creates a session, and saves the user id in the session.
 exports.loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -50,12 +54,14 @@ exports.loginUser = async (req, res) => {
     }
 };
 
+//Makes user log out
 exports.logoutUser = (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
     });
 };
 
+//Gets Dashboard by user role
 exports.getDashboardPage = async (req, res) => {
     const user = await User.findOne({ _id: req.session.userID }).populate(
         'courses'
@@ -72,6 +78,7 @@ exports.getDashboardPage = async (req, res) => {
     });
 };
 
+//Deletes registered users and courses  depended on users
 exports.deleteUser = async (req, res) => {
     try {
         await User.findByIdAndRemove(req.params.id)

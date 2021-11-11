@@ -1,11 +1,14 @@
+//Imports
 const express = require('express');
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const { body } = require('express-validator');
 const User = require('../models/User')
 
+//Initializes express router
 const router = express.Router();
 
+//Routers
 router.route('/signUp').post(
     [
         body('name').not().isEmpty().withMessage('Please Enter Your Name'),
@@ -30,4 +33,5 @@ router.route('/logout').get(authController.logoutUser);
 router.route('/dashboard').get(authMiddleware, authController.getDashboardPage);
 router.route('/:id').delete(authController.deleteUser);
 
+//exports router
 module.exports = router;

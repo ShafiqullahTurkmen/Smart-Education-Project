@@ -1,5 +1,7 @@
+//Imports
 const Category = require('../models/Category');
 
+//Creates Category
 exports.createCategory = async (req, res) => {
   try {
     const category = await Category.create(req.body);
@@ -12,6 +14,7 @@ exports.createCategory = async (req, res) => {
   }
 };
 
+//Deletes Category
 exports.deleteCategory = async (req, res) => {
   try {
       await Category.findByIdAndRemove(req.params.id)

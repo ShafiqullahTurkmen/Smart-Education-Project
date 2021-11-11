@@ -1,3 +1,4 @@
+//Imports
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
@@ -29,14 +30,7 @@ const UserSchema = new Schema({
     ],
 });
 
-// UserSchema.pre('save', function (next) {
-//     const user = this;
-//     bcrypt.hash(user.password, 10, (err, hash) => {
-//         user.password = hash;
-//         next();
-//     });
-// });
-
+//Encrypts user passwords
 UserSchema.pre('save', function (next) {
     const user = this;
     if (!user.isModified('password')) {
@@ -58,6 +52,8 @@ UserSchema.pre('save', function (next) {
     });
 });
 
+//Creates User model
 const User = mongoose.model('User', UserSchema);
 
+//exports User 
 module.exports = User;

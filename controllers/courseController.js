@@ -2,6 +2,7 @@ const Course = require('../models/Course');
 const Category = require('../models/Category');
 const User = require('../models/User');
 
+//Creates Course and makes relation with its creator
 exports.createCourse = async (req, res) => {
     try {
         const course = await Course.create({
@@ -19,6 +20,7 @@ exports.createCourse = async (req, res) => {
     }
 };
 
+//Gets All Courses 
 exports.getAllCourses = async (req, res) => {
     try {
         const categorySlug = req.query.categories;
@@ -63,6 +65,7 @@ exports.getAllCourses = async (req, res) => {
     }
 };
 
+//Gets Course
 exports.getCourse = async (req, res) => {
     try {
         const user = await User.findById(req.session.userID);
@@ -85,6 +88,7 @@ exports.getCourse = async (req, res) => {
     }
 };
 
+//Enrolls users to course
 exports.enrollCourse = async (req, res) => {
     try {
         const user = await User.findById(req.session.userID);
@@ -100,6 +104,7 @@ exports.enrollCourse = async (req, res) => {
     }
 };
 
+//Releases user from course
 exports.releaseCourse = async (req, res) => {
     try {
         const user = await User.findById(req.session.userID);
@@ -115,6 +120,7 @@ exports.releaseCourse = async (req, res) => {
     }
 };
 
+//Deletes Course
 exports.deleteCourse = async (req, res) => {
     try {
         const course = await Course.findOneAndRemove({slug: req.params.slug})
@@ -128,7 +134,7 @@ exports.deleteCourse = async (req, res) => {
     }
 };
 
-
+//Updates Course
 exports.updateCourse = async (req, res) => {
     try {
         

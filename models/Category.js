@@ -1,7 +1,9 @@
+//Imports
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Schema = mongoose.Schema;
 
+//Creates Category Schema
 const CategorySchema = new Schema({
 
     name: {
@@ -16,6 +18,7 @@ const CategorySchema = new Schema({
 
 });
 
+//Creates slug-name by name of Category
 CategorySchema.pre('validate', function (next) {
     this.slug = slugify(this.name, {
         lower: true,
@@ -24,6 +27,8 @@ CategorySchema.pre('validate', function (next) {
     next();
 })
 
+//Creates Category model
 const Category = mongoose.model('Category', CategorySchema);
 
+//exports Category
 module.exports = Category;
