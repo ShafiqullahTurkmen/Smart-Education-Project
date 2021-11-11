@@ -38,7 +38,7 @@ app.use(session({
         resave: false,
         saveUninitialized: true,
         store: MongoStore.create({
-            mongoUrl: 'mongodb://localhost/smart-education-db',
+            mongoUrl: 'mongodb+srv://shafiqullahturkmen:t9iXrBCH8P48hocu@cluster0.umemf.mongodb.net/smart-education-db?retryWrites=true&w=majority',
         }),
     })
 );
